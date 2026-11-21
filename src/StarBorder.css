@@ -22,7 +22,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   border-radius: inherit;
   box-shadow: inset 0 0 0 var(--star-border-thickness) var(--star-border-track);
   pointer-events: none;
@@ -32,10 +32,15 @@
   position: absolute;
   top: -48px;
   left: -48px;
-  z-index: -1;
+  z-index: 1;
   width: calc(100% + 96px);
   height: calc(100% + 96px);
   pointer-events: none;
+}
+
+.star-border > :not(canvas) {
+  position: relative;
+  z-index: 2;
 }
 
 button.star-border,

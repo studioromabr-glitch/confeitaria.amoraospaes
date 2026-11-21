@@ -17,6 +17,7 @@ import {
   Heart
 } from 'lucide-react';
 import CountUp from './CountUp';
+import StarBorder from './StarBorder';
 
 interface MenuItem {
   id: number;
@@ -239,7 +240,10 @@ export function App() {
             <p className="text-[#5C3D2E] text-base sm:text-lg leading-relaxed max-w-2xl">
               Comece o dia com nosso pão na chapa crocante, aproveite o{' '}
               <strong className="text-[#2C1A12] font-semibold">
-                Café Tropical à vontade
+                Café Tropical{' '}
+                <span className="relative inline-block px-2 py-0.5 rounded-md bg-gradient-to-r from-[#FDE68A]/75 via-[#FBBF24]/55 to-[#FDE68A]/75 text-[#78350F] font-bold shadow-[0_0_18px_rgba(245,158,11,0.45)] ring-1 ring-[#F59E0B]/40">
+                  à vontade
+                </span>
               </strong>{' '}
               ou escolha entre rocamboles recheados, bolos piscina, tortas finas e
               salgados assados na hora.
@@ -342,14 +346,27 @@ export function App() {
                   </li>
                 </ul>
 
-                <a
+                <StarBorder
+                  as="a"
                   href={whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 bg-[#C87D32] hover:bg-[#b06a24] text-white font-semibold py-3.5 rounded-full transition-all shadow-md shadow-[#C87D32]/20"
+                  backgroundColor="#C87D32"
+                  textColor="#FFFFFF"
+                  color="#FFFBEB"
+                  trailColor="#FDE047"
+                  borderColor="rgba(255, 255, 255, 0.45)"
+                  radius={999}
+                  thickness={2.5}
+                  trailLength={0.45}
+                  duration={2.8}
+                  glow={1}
+                  sparkle
+                  clickPulse
+                  className="w-full font-semibold text-sm py-3.5 px-6 shadow-md shadow-[#C87D32]/25"
                 >
                   <span>Consultar Horários no WhatsApp</span>
-                </a>
+                </StarBorder>
               </div>
             </div>
           </div>
