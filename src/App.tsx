@@ -28,7 +28,8 @@ const MENU_ITEMS: MenuItem[] = [
     id: 1,
     category: 'especiais',
     title: 'Café Tropical à Vontade',
-    description: 'Mesa farta com frutas frescas, pães artesanais, frios, bolos caseiros, sucos naturais e bebidas quentes.',
+    description:
+      'Mesa farta com frutas frescas, pães artesanais, frios, bolos caseiros, sucos naturais e bebidas quentes.',
     price: 'R$ 49,90',
     badge: 'Mais Pedido'
   },
@@ -36,32 +37,37 @@ const MENU_ITEMS: MenuItem[] = [
     id: 2,
     category: 'cafe',
     title: 'Pão na Chapa com Requeijão',
-    description: 'Pão francês crocante feito na hora com camada generosa de requeijão cremoso dourado na chapa.',
+    description:
+      'Pão francês crocante feito na hora com camada generosa de requeijão cremoso dourado na chapa.',
     badge: 'Clássico da Casa'
   },
   {
     id: 3,
     category: 'doces',
     title: 'Tortas & Bolos Artesanais',
-    description: 'Fatias e bolos inteiros sob encomenda com recheios cremosos, frutas frescas e acabamento fino.',
+    description:
+      'Fatias e bolos inteiros sob encomenda com recheios cremosos, frutas frescas e acabamento fino.'
   },
   {
     id: 4,
     category: 'salgados',
     title: 'Salgados Assados & Lanches',
-    description: 'Variedade de salgados assados na hora, lanches naturais e opções perfeitas para o lanche da tarde.',
+    description:
+      'Variedade de salgados assados na hora, lanches naturais e opções perfeitas para o lanche da tarde.'
   },
   {
     id: 5,
     category: 'especiais',
     title: 'Buffet Coffee Break & Almoço',
-    description: 'Soluções completas para eventos corporativos, reuniões e almoço diário com sabor caseiro.',
+    description:
+      'Soluções completas para eventos corporativos, reuniões e almoço diário com sabor caseiro.'
   },
   {
     id: 6,
     category: 'especiais',
     title: 'Pizzas & Caldos',
-    description: 'Opções especiais para o fim de tarde e noite, servidas quentinhas até as 22h.',
+    description:
+      'Opções especiais para o fim de tarde e noite, servidas quentinhas até as 22h.'
   }
 ];
 
