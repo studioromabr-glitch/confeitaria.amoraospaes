@@ -36,7 +36,8 @@ const MENU_ITEMS: MenuItem[] = [
       'Mesa farta com pães de queijo quentinhos, bolos caseiros, frutas frescas, frios, tortas, sucos naturais e cafés especiais.',
     price: 'R$ 49,90',
     badge: 'Mais Pedido',
-    image: '/images/cafe-tropical.jpg'
+    image:
+      'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80'
   },
   {
     id: 2,
@@ -45,7 +46,8 @@ const MENU_ITEMS: MenuItem[] = [
     description:
       'Massa fofinha enrolada à mão nos sabores tradicionais: goiabada cremosa com coco ralado, chocolate com amendoim e doce de leite.',
     badge: 'Especialidade',
-    image: '/images/rocamboles.jpg'
+    image:
+      'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=900&q=80'
   },
   {
     id: 3,
@@ -54,7 +56,8 @@ const MENU_ITEMS: MenuItem[] = [
     description:
       'Bolos caseiros com cobertura generosa de doce de leite, chocolate belga, cenoura, milho cremoso e frutas vermelhas.',
     badge: 'Feito Hoje',
-    image: '/images/cafe-tropical.jpg'
+    image:
+      'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=900&q=80'
   },
   {
     id: 4,
@@ -63,7 +66,8 @@ const MENU_ITEMS: MenuItem[] = [
     description:
       'Pão francês crocante na chapa com requeijão cremoso dourado e cestas de pão de queijo assados a cada fornada.',
     badge: 'Clássico da Casa',
-    image: '/images/cafe-tropical.jpg'
+    image:
+      'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=900&q=80'
   },
   {
     id: 5,
@@ -71,7 +75,8 @@ const MENU_ITEMS: MenuItem[] = [
     title: 'Salgados Assados & Lanches',
     description:
       'Enroladinhos, esfihas, folhados dourados e lanches naturais preparados diariamente para qualquer hora do dia.',
-    image: '/images/rocamboles.jpg'
+    image:
+      'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&w=900&q=80'
   },
   {
     id: 6,
@@ -79,7 +84,8 @@ const MENU_ITEMS: MenuItem[] = [
     title: 'Buffet Coffee Break, Almoço & Pizzas',
     description:
       'Opções completas para eventos corporativos, almoço caseiro e pizzas e caldos servidos quentinhos até às 22h.',
-    image: '/images/fachada-emporio.jpg'
+    image:
+      'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=900&q=80'
   }
 ];
 
@@ -136,11 +142,17 @@ export function App() {
       <header className="sticky top-0 z-40 bg-[#FDF8F2]/95 backdrop-blur-md border-b border-[#E8D8C4]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
           <a href="#inicio" className="flex items-center gap-3.5">
-            <img
-              src="/images/logo-amor-aos-paes.jpg"
-              alt="Logo Confeitaria Amor aos Pães Empório"
-              className="w-12 h-12 rounded-full object-cover border-2 border-[#D4AF37] shadow-md"
-            />
+            <div className="w-12 h-12 rounded-full bg-[#141414] border-2 border-[#D4AF37] flex flex-col items-center justify-center shadow-md">
+              <span
+                style={serifStyle}
+                className="text-[#F3D98B] font-bold text-sm leading-none"
+              >
+                AP
+              </span>
+              <span className="text-[7px] uppercase tracking-widest text-[#D4AF37] mt-0.5">
+                Empório
+              </span>
+            </div>
             <div>
               <span
                 style={serifStyle}
@@ -249,8 +261,8 @@ export function App() {
             <div className="rounded-3xl bg-white border border-[#E8D8C4] overflow-hidden shadow-xl shadow-[#2C1A12]/8">
               <div className="relative h-52 overflow-hidden">
                 <img
-                  src="/images/cafe-tropical.jpg"
-                  alt="Café Tropical à vontade na Confeitaria Amor aos Pães Empório"
+                  src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80"
+                  alt="Mesa farta de café da manhã e confeitaria"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent" />
