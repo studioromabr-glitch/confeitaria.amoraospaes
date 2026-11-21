@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion } from 'motion/react';
 import {
   MapPin,
   Phone,
@@ -109,6 +110,26 @@ const REVIEWS = [
 
 const serifStyle = { fontFamily: 'var(--font-serif)' };
 const sansStyle = { fontFamily: 'var(--font-sans)' };
+
+function ScrollIcon({
+  children,
+  delay = 0
+}: {
+  children: React.ReactNode;
+  delay?: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 14, scale: 0.75 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 'some' }}
+      transition={{ duration: 0.45, delay, ease: [0.22, 1, 0.36, 1] }}
+      className="inline-flex items-center justify-center"
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 export function App() {
   const [activeCategory, setActiveCategory] = useState<string>('todos');
@@ -451,7 +472,9 @@ export function App() {
             <div className="flex items-center gap-2 bg-white border border-[#E8D8C4] px-4 py-2.5 rounded-full shadow-sm">
               <div className="flex text-[#D98A2B]">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-[#D98A2B]" />
+                  <ScrollIcon key={i} delay={i * 0.08}>
+                    <Star className="w-4 h-4 fill-[#D98A2B]" />
+                  </ScrollIcon>
                 ))}
               </div>
               <span className="text-sm text-[#4A3226] font-semibold">
@@ -468,7 +491,9 @@ export function App() {
               >
                 <div className="flex gap-1 text-[#D98A2B]">
                   {[...Array(review.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[#D98A2B]" />
+                    <ScrollIcon key={i} delay={i * 0.08}>
+                      <Star className="w-4 h-4 fill-[#D98A2B]" />
+                    </ScrollIcon>
                   ))}
                 </div>
                 <p className="text-[#4A3226] text-sm leading-relaxed italic">
@@ -497,7 +522,9 @@ export function App() {
             <div className="space-y-5 text-[#4A3226]">
               <div className="flex items-start gap-3.5">
                 <div className="w-10 h-10 rounded-full bg-[#FDF8F2] border border-[#E8D8C4] flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5 text-[#C87D32]" />
+                  <ScrollIcon delay={0.05}>
+                    <MapPin className="w-5 h-5 text-[#C87D32]" />
+                  </ScrollIcon>
                 </div>
                 <div>
                   <p className="font-bold text-[#2C1A12]">Endereço</p>
@@ -509,7 +536,9 @@ export function App() {
 
               <div className="flex items-start gap-3.5">
                 <div className="w-10 h-10 rounded-full bg-[#FDF8F2] border border-[#E8D8C4] flex items-center justify-center shrink-0">
-                  <Clock className="w-5 h-5 text-[#C87D32]" />
+                  <ScrollIcon delay={0.12}>
+                    <Clock className="w-5 h-5 text-[#C87D32]" />
+                  </ScrollIcon>
                 </div>
                 <div>
                   <p className="font-bold text-[#2C1A12]">Horário de Funcionamento</p>
@@ -521,7 +550,9 @@ export function App() {
 
               <div className="flex items-start gap-3.5">
                 <div className="w-10 h-10 rounded-full bg-[#FDF8F2] border border-[#E8D8C4] flex items-center justify-center shrink-0">
-                  <Phone className="w-5 h-5 text-[#C87D32]" />
+                  <ScrollIcon delay={0.18}>
+                    <Phone className="w-5 h-5 text-[#C87D32]" />
+                  </ScrollIcon>
                 </div>
                 <div>
                   <p className="font-bold text-[#2C1A12]">Telefone / WhatsApp</p>
@@ -531,7 +562,9 @@ export function App() {
 
               <div className="flex items-start gap-3.5">
                 <div className="w-10 h-10 rounded-full bg-[#FDF8F2] border border-[#E8D8C4] flex items-center justify-center shrink-0">
-                  <Camera className="w-5 h-5 text-[#C87D32]" />
+                  <ScrollIcon delay={0.24}>
+                    <Camera className="w-5 h-5 text-[#C87D32]" />
+                  </ScrollIcon>
                 </div>
                 <div>
                   <p className="font-bold text-[#2C1A12]">Instagram</p>
