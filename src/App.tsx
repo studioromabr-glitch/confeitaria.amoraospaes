@@ -8,11 +8,14 @@ import {
   UtensilsCrossed,
   Coffee,
   Cake,
+  Croissant,
   MessageCircle,
   ChevronRight,
   Sparkles,
-  CheckCircle2
+  CheckCircle2,
+  Heart
 } from 'lucide-react';
+import CountUp from './CountUp';
 
 interface MenuItem {
   id: number;
@@ -21,6 +24,7 @@ interface MenuItem {
   description: string;
   price?: string;
   badge?: string;
+  image: string;
 }
 
 const MENU_ITEMS: MenuItem[] = [
@@ -29,45 +33,53 @@ const MENU_ITEMS: MenuItem[] = [
     category: 'especiais',
     title: 'Café Tropical à Vontade',
     description:
-      'Mesa farta com frutas frescas, pães artesanais, frios, bolos caseiros, sucos naturais e bebidas quentes.',
+      'Mesa farta com pães de queijo quentinhos, bolos caseiros, frutas frescas, frios, tortas, sucos naturais e cafés especiais.',
     price: 'R$ 49,90',
-    badge: 'Mais Pedido'
+    badge: 'Mais Pedido',
+    image: '/images/cafe-tropical.jpg'
   },
   {
     id: 2,
-    category: 'cafe',
-    title: 'Pão na Chapa com Requeijão',
+    category: 'doces',
+    title: 'Rocamboles Artesanais',
     description:
-      'Pão francês crocante feito na hora com camada generosa de requeijão cremoso dourado na chapa.',
-    badge: 'Clássico da Casa'
+      'Massa fofinha enrolada à mão nos sabores tradicionais: goiabada cremosa com coco ralado, chocolate com amendoim e doce de leite.',
+    badge: 'Especialidade',
+    image: '/images/rocamboles.jpg'
   },
   {
     id: 3,
     category: 'doces',
-    title: 'Tortas & Bolos Artesanais',
+    title: 'Bolos Piscina & Tortas',
     description:
-      'Fatias e bolos inteiros sob encomenda com recheios cremosos, frutas frescas e acabamento fino.'
+      'Bolos caseiros com cobertura generosa de doce de leite, chocolate belga, cenoura, milho cremoso e frutas vermelhas.',
+    badge: 'Feito Hoje',
+    image: '/images/cafe-tropical.jpg'
   },
   {
     id: 4,
-    category: 'salgados',
-    title: 'Salgados Assados & Lanches',
+    category: 'cafe',
+    title: 'Pão na Chapa & Pão de Queijo',
     description:
-      'Variedade de salgados assados na hora, lanches naturais e opções perfeitas para o lanche da tarde.'
+      'Pão francês crocante na chapa com requeijão cremoso dourado e cestas de pão de queijo assados a cada fornada.',
+    badge: 'Clássico da Casa',
+    image: '/images/cafe-tropical.jpg'
   },
   {
     id: 5,
-    category: 'especiais',
-    title: 'Buffet Coffee Break & Almoço',
+    category: 'salgados',
+    title: 'Salgados Assados & Lanches',
     description:
-      'Soluções completas para eventos corporativos, reuniões e almoço diário com sabor caseiro.'
+      'Enroladinhos, esfihas, folhados dourados e lanches naturais preparados diariamente para qualquer hora do dia.',
+    image: '/images/rocamboles.jpg'
   },
   {
     id: 6,
     category: 'especiais',
-    title: 'Pizzas & Caldos',
+    title: 'Buffet Coffee Break, Almoço & Pizzas',
     description:
-      'Opções especiais para o fim de tarde e noite, servidas quentinhas até as 22h.'
+      'Opções completas para eventos corporativos, almoço caseiro e pizzas e caldos servidos quentinhos até às 22h.',
+    image: '/images/fachada-emporio.jpg'
   }
 ];
 
@@ -89,12 +101,15 @@ const REVIEWS = [
   }
 ];
 
+const serifStyle = { fontFamily: 'var(--font-serif)' };
+const sansStyle = { fontFamily: 'var(--font-sans)' };
+
 export function App() {
   const [activeCategory, setActiveCategory] = useState<string>('todos');
 
   const whatsappNumber = '5519991300573';
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-    'Olá! Vim pelo site da Confeitaria Amor aos Pães Empório e gostaria de mais informações.'
+    'Olá! Vim pelo site da Confeitaria Amor aos Pães Empório e gostaria de fazer um pedido ou saber mais informações.'
   )}`;
 
   const filteredItems =
@@ -103,38 +118,54 @@ export function App() {
       : MENU_ITEMS.filter((item) => item.category === activeCategory);
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-neutral-100 font-sans selection:bg-[#E5C158] selection:text-black">
+    <div
+      style={sansStyle}
+      className="min-h-screen bg-[#FDF8F2] text-[#2C1A12] selection:bg-[#C87D32] selection:text-white"
+    >
+      {/* Faixa superior acolhedora */}
+      <div className="bg-[#2C1A12] text-[#F7E7CE] text-xs py-2 px-4 text-center">
+        <p className="flex items-center justify-center gap-2 font-medium">
+          <Croissant className="w-3.5 h-3.5 text-[#E5B869]" />
+          <span>
+            Fornadas fresquinhas todos os dias · Aberto de Segunda a Domingo até às 22:00
+          </span>
+        </p>
+      </div>
+
       {/* Header / Navbar */}
-      <header className="sticky top-0 z-40 bg-[#0A0A0A]/90 backdrop-blur-md border-b border-[#E5C158]/15">
+      <header className="sticky top-0 z-40 bg-[#FDF8F2]/95 backdrop-blur-md border-b border-[#E8D8C4]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
-          <a href="#inicio" className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-full bg-black border-2 border-[#E5C158] flex items-center justify-center shadow-[0_0_15px_rgba(229,193,88,0.2)]">
-              <span className="font-serif text-[#E5C158] font-bold text-sm tracking-tight">
-                AP
-              </span>
-            </div>
+          <a href="#inicio" className="flex items-center gap-3.5">
+            <img
+              src="/images/logo-amor-aos-paes.jpg"
+              alt="Logo Confeitaria Amor aos Pães Empório"
+              className="w-12 h-12 rounded-full object-cover border-2 border-[#D4AF37] shadow-md"
+            />
             <div>
-              <span className="font-serif text-lg sm:text-xl font-semibold text-[#E5C158] block leading-none">
+              <span
+                style={serifStyle}
+                className="text-xl sm:text-2xl font-bold text-[#2C1A12] block leading-none"
+              >
                 Amor aos Pães
               </span>
-              <span className="text-[11px] uppercase tracking-[0.2em] text-neutral-400">
-                Confeitaria & Empório
+              <span className="text-[11px] uppercase tracking-[0.2em] text-[#9C622B] font-semibold">
+                Confeitaria & Padaria
               </span>
             </div>
           </a>
 
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-300">
-            <a href="#inicio" className="hover:text-[#E5C158] transition-colors">
+          <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-[#5C3D2E]">
+            <a href="#inicio" className="hover:text-[#C87D32] transition-colors">
               Início
             </a>
-            <a href="#cardapio" className="hover:text-[#E5C158] transition-colors">
-              Destaques
+            <a href="#cardapio" className="hover:text-[#C87D32] transition-colors">
+              Vitrine & Sabores
             </a>
-            <a href="#avaliacoes" className="hover:text-[#E5C158] transition-colors">
+            <a href="#avaliacoes" className="hover:text-[#C87D32] transition-colors">
               Avaliações
             </a>
-            <a href="#localizacao" className="hover:text-[#E5C158] transition-colors">
-              Localização
+            <a href="#localizacao" className="hover:text-[#C87D32] transition-colors">
+              Onde Estamos
             </a>
           </nav>
 
@@ -142,45 +173,51 @@ export function App() {
             href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-[#E5C158] hover:bg-[#d4b047] text-black font-semibold text-sm px-4 py-2.5 rounded-lg transition-all shadow-lg shadow-[#E5C158]/10"
+            className="inline-flex items-center gap-2 bg-[#C87D32] hover:bg-[#b06a24] text-white font-semibold text-sm px-4 py-2.5 rounded-full transition-all shadow-md shadow-[#C87D32]/20"
           >
             <MessageCircle className="w-4 h-4" />
-            <span>Fale Conosco</span>
+            <span>Pedir no WhatsApp</span>
           </a>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section id="inicio" className="relative pt-14 pb-20 lg:pt-24 lg:pb-28 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(229,193,88,0.12),transparent_50%)] pointer-events-none" />
+      {/* Hero Section Clara & Acolhedora */}
+      <section id="inicio" className="relative pt-12 pb-20 lg:pt-20 lg:pb-28 overflow-hidden">
+        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-[#F3DFC1]/70 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-[#F8E6E0]/60 blur-3xl pointer-events-none" />
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-12 items-center">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-12 items-center relative">
           {/* Coluna Esquerda */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141414] border border-[#E5C158]/30 text-[#E5C158] text-xs font-medium">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Tradição, Sabor & Confeitaria Artesanal em Campinas</span>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#F6E8D5] border border-[#E2C6A0] text-[#8C521E] text-xs font-semibold">
+              <Heart className="w-3.5 h-3.5 fill-[#B83A3A] text-[#B83A3A]" />
+              <span>Padaria, Confeitaria Artesanal & Empório em Campinas</span>
             </div>
 
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1]">
-              Confeitaria{' '}
-              <span className="text-[#E5C158]">Amor aos Pães</span> Empório
+            <h1
+              style={serifStyle}
+              className="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold tracking-tight text-[#2C1A12] leading-[1.12]"
+            >
+              O aroma de{' '}
+              <span className="text-[#C87D32] italic">pão quentinho</span> e doces
+              feitos com carinho
             </h1>
 
-            <div className="p-5 rounded-2xl bg-[#121212] border border-white/10 text-neutral-300 text-base sm:text-lg leading-relaxed">
-              Do café da manhã especial com pão na chapa ao nosso famoso{' '}
-              <strong className="text-[#E5C158] font-medium">
+            <p className="text-[#5C3D2E] text-base sm:text-lg leading-relaxed max-w-2xl">
+              Comece o dia com nosso pão na chapa crocante, aproveite o{' '}
+              <strong className="text-[#2C1A12] font-semibold">
                 Café Tropical à vontade
-              </strong>
-              , preparamos doces, tortas, salgados e refeições com carinho todos os dias.
-            </div>
+              </strong>{' '}
+              ou escolha entre rocamboles recheados, bolos piscina, tortas finas e
+              salgados assados na hora.
+            </p>
 
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <a
                 href="#cardapio"
-                className="inline-flex items-center gap-2 bg-white hover:bg-neutral-200 text-black font-semibold px-6 py-3.5 rounded-xl transition-all"
+                className="inline-flex items-center gap-2 bg-[#2C1A12] hover:bg-[#3f271c] text-[#FDF8F2] font-semibold px-7 py-3.5 rounded-full transition-all shadow-lg shadow-[#2C1A12]/15"
               >
-                <span>Ver Destaques</span>
+                <span>Conhecer a Vitrine</span>
                 <ChevronRight className="w-4 h-4" />
               </a>
 
@@ -188,96 +225,128 @@ export function App() {
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-[#E5C158] hover:bg-[#d4b047] text-black font-semibold px-6 py-3.5 rounded-xl transition-all"
+                className="inline-flex items-center gap-2 bg-white hover:bg-[#F7EFE4] text-[#2C1A12] border border-[#DFCBB2] font-semibold px-7 py-3.5 rounded-full transition-all"
               >
-                <MessageCircle className="w-4 h-4" />
-                <span>Fazer Encomenda</span>
+                <MessageCircle className="w-4 h-4 text-[#C87D32]" />
+                <span>Encomendar Bolos & Tortas</span>
               </a>
             </div>
 
-            <div className="pt-4 flex flex-wrap items-center gap-6 text-sm text-neutral-400">
+            <div className="pt-4 flex flex-wrap items-center gap-6 text-sm text-[#6E4D3B]">
               <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-[#E5C158]" />
+                <Clock className="w-4 h-4 text-[#C87D32]" />
                 <span>Aberto todos os dias até 22:00</span>
               </div>
               <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#E5C158]" />
+                <MapPin className="w-4 h-4 text-[#C87D32]" />
                 <span>Jardim do Trevo, Campinas - SP</span>
               </div>
             </div>
           </div>
 
-          {/* Coluna Direita (Card Destaque Café Tropical) */}
+          {/* Coluna Direita (Card Vitrine Café Tropical) */}
           <div className="lg:col-span-5">
-            <div className="relative rounded-3xl bg-gradient-to-b from-[#1A1814] to-[#111111] border border-[#E5C158]/30 p-6 sm:p-8 shadow-2xl">
-              <div className="flex items-center justify-between mb-6">
-                <span className="px-3 py-1 rounded-full bg-[#E5C158]/15 text-[#E5C158] text-xs font-semibold uppercase tracking-wider">
-                  Destaque da Casa
-                </span>
-                <span className="text-xs text-neutral-400">@confeitaria.amoraospaes</span>
+            <div className="rounded-3xl bg-white border border-[#E8D8C4] overflow-hidden shadow-xl shadow-[#2C1A12]/8">
+              <div className="relative h-52 overflow-hidden">
+                <img
+                  src="/images/cafe-tropical.jpg"
+                  alt="Café Tropical à vontade na Confeitaria Amor aos Pães Empório"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent" />
+                <div className="absolute top-4 left-4">
+                  <span className="px-3.5 py-1 rounded-full bg-[#B83A3A] text-white text-xs font-semibold shadow">
+                    Destaque da Casa
+                  </span>
+                </div>
+                <div className="absolute bottom-4 left-5 right-5 flex items-end justify-between text-white">
+                  <div>
+                    <p className="text-xs uppercase tracking-wider text-[#F7E7CE]">
+                      Buffet Especial
+                    </p>
+                    <h2 style={serifStyle} className="text-2xl font-bold leading-tight">
+                      Café Tropical à Vontade
+                    </h2>
+                  </div>
+                </div>
               </div>
 
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white mb-2">
-                Café Tropical à Vontade
-              </h2>
-              <p className="text-neutral-400 text-sm mb-6">
-                Experiência completa para aproveitar com a família e amigos no nosso empório.
-              </p>
+              <div className="p-6 sm:p-7">
+                <div className="p-4 rounded-2xl bg-[#FDF8F2] border border-[#E8D8C4] mb-5 flex items-center justify-between gap-3">
+                  <span
+                    style={serifStyle}
+                    className="text-3xl font-bold text-[#C87D32] shrink-0"
+                  >
+                    <CountUp
+                      from={49.9}
+                      to={99.9}
+                      decimals={2}
+                      direction="down"
+                      mode="roll"
+                      duration={1.6}
+                      trigger="load"
+                      replayOnHover
+                      prefix="R$ "
+                    />
+                  </span>
+                  <span className="text-xs text-[#6E4D3B] text-right">
+                    Servido no nosso empório
+                  </span>
+                </div>
 
-              <div className="p-4 rounded-2xl bg-black/60 border border-[#E5C158]/20 mb-6 flex items-baseline justify-between">
-                <span className="text-sm text-neutral-300">Por pessoa</span>
-                <span className="font-serif text-3xl font-bold text-[#E5C158]">
-                  R$ 49,90
-                </span>
+                <ul className="space-y-2.5 text-sm text-[#4A3226] mb-6">
+                  <li className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C87D32] shrink-0" />
+                    <span>Pães artesanais, pão de queijo, bolos e tortas</span>
+                  </li>
+                  <li className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C87D32] shrink-0" />
+                    <span>Frutas frescas da estação, frios e sucos naturais</span>
+                  </li>
+                  <li className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#C87D32] shrink-0" />
+                    <span>Também temos Coffee Break & Almoço</span>
+                  </li>
+                </ul>
+
+                <a
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full inline-flex items-center justify-center gap-2 bg-[#C87D32] hover:bg-[#b06a24] text-white font-semibold py-3.5 rounded-full transition-all shadow-md shadow-[#C87D32]/20"
+                >
+                  <span>Consultar Horários no WhatsApp</span>
+                </a>
               </div>
-
-              <ul className="space-y-3 text-sm text-neutral-300 mb-8">
-                <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#E5C158] shrink-0" />
-                  <span>Buffet variado de pães, bolos, tortas e frios</span>
-                </li>
-                <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#E5C158] shrink-0" />
-                  <span>Frutas frescas, sucos naturais e cafés especiais</span>
-                </li>
-                <li className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#E5C158] shrink-0" />
-                  <span>Opções também de Buffet Coffee Break & Almoço</span>
-                </li>
-              </ul>
-
-              <a
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 bg-[#E5C158] hover:bg-[#d4b047] text-black font-semibold py-3.5 rounded-xl transition-all"
-              >
-                <span>Consultar Horários e Reservas</span>
-              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Cardápio / Especialidades */}
-      <section id="cardapio" className="py-20 bg-[#0E0E0E] border-y border-white/5">
+      {/* Vitrine de Produtos / Especialidades */}
+      <section id="cardapio" className="py-20 bg-white border-y border-[#E8D8C4]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-[#E5C158] text-xs font-semibold uppercase tracking-[0.2em]">
-              Nossas Especialidades
+            <span className="text-[#C87D32] text-xs font-bold uppercase tracking-[0.2em]">
+              Nossa Vitrine
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white mt-2">
-              Feito com amor em cada detalhe
+            <h2 style={serifStyle} className="text-3xl sm:text-4xl font-bold text-[#2C1A12] mt-2">
+              Sabores que adoçam o seu dia
             </h2>
+            <p className="text-[#6E4D3B] text-sm sm:text-base mt-3">
+              Do café da manhã tradicional às encomendas de bolos, rocamboles e
+              buffets completos.
+            </p>
           </div>
 
           {/* Filtros de Categoria */}
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10">
+          <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3 mb-12">
             {[
-              { id: 'todos', label: 'Todos', icon: UtensilsCrossed },
-              { id: 'especiais', label: 'Buffet & Especiais', icon: Sparkles },
-              { id: 'cafe', label: 'Café da Manhã', icon: Coffee },
-              { id: 'doces', label: 'Tortas & Bolos', icon: Cake }
+              { id: 'todos', label: 'Toda a Vitrine', icon: UtensilsCrossed },
+              { id: 'doces', label: 'Bolos & Rocamboles', icon: Cake },
+              { id: 'cafe', label: 'Café & Pães', icon: Coffee },
+              { id: 'salgados', label: 'Salgados & Lanches', icon: Croissant },
+              { id: 'especiais', label: 'Buffet & Especiais', icon: Sparkles }
             ].map((tab) => {
               const Icon = tab.icon;
               const isActive = activeCategory === tab.id;
@@ -285,55 +354,65 @@ export function App() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveCategory(tab.id)}
-                  className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer ${
+                  className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all cursor-pointer ${
                     isActive
-                      ? 'bg-[#E5C158] text-black font-semibold'
-                      : 'bg-[#161616] text-neutral-300 hover:bg-[#1F1F1F] border border-white/10'
+                      ? 'bg-[#2C1A12] text-[#FDF8F2] shadow-md'
+                      : 'bg-[#FDF8F2] text-[#5C3D2E] hover:bg-[#F3E7D7] border border-[#E8D8C4]'
                   }`}
                 >
-                  <Icon className="w-4 h-4" />
+                  <Icon className="w-4 h-4 text-[#C87D32]" />
                   <span>{tab.label}</span>
                 </button>
               );
             })}
           </div>
 
-          {/* Grid de Produtos */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Grid de Produtos com Fotos */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
             {filteredItems.map((item) => (
               <div
                 key={item.id}
-                className="rounded-2xl bg-[#141414] border border-white/10 hover:border-[#E5C158]/40 p-6 flex flex-col justify-between transition-all"
+                className="group rounded-3xl bg-[#FDF8F2] border border-[#E8D8C4] hover:border-[#C87D32] overflow-hidden flex flex-col justify-between transition-all hover:shadow-xl hover:shadow-[#2C1A12]/8"
               >
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    {item.badge ? (
-                      <span className="text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-md bg-[#E5C158]/15 text-[#E5C158]">
+                  <div className="relative h-48 overflow-hidden bg-[#EFE3D3]">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    {item.badge && (
+                      <span className="absolute top-3.5 left-3.5 text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/95 text-[#8C521E] shadow-sm">
                         {item.badge}
                       </span>
-                    ) : (
-                      <span />
                     )}
                     {item.price && (
-                      <span className="font-serif font-bold text-lg text-[#E5C158]">
+                      <span
+                        style={serifStyle}
+                        className="absolute bottom-3.5 right-3.5 font-bold text-base px-3.5 py-1 rounded-full bg-[#2C1A12] text-[#F7E7CE] shadow"
+                      >
                         {item.price}
                       </span>
                     )}
                   </div>
-                  <h3 className="font-serif text-xl font-semibold text-white mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-neutral-400 leading-relaxed">
-                    {item.description}
-                  </p>
+
+                  <div className="p-6 pb-4">
+                    <h3 style={serifStyle} className="text-xl font-bold text-[#2C1A12] mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-[#5C3D2E] leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
 
-                <div className="pt-6 mt-6 border-t border-white/5">
+                <div className="px-6 pb-6 pt-3">
                   <a
                     href={whatsappLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-[#E5C158] hover:underline"
+                    className="inline-flex items-center gap-1.5 text-sm font-bold text-[#C87D32] hover:text-[#9C5C1D] transition-colors"
                   >
                     <span>Pedir ou consultar no WhatsApp</span>
                     <ChevronRight className="w-4 h-4" />
@@ -346,25 +425,25 @@ export function App() {
       </section>
 
       {/* Avaliações de Clientes */}
-      <section id="avaliacoes" className="py-20">
+      <section id="avaliacoes" className="py-20 bg-[#FDF8F2]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
             <div>
-              <span className="text-[#E5C158] text-xs font-semibold uppercase tracking-[0.2em]">
-                Prova Social
+              <span className="text-[#C87D32] text-xs font-bold uppercase tracking-[0.2em]">
+                Quem prova, recomenda
               </span>
-              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white mt-2">
+              <h2 style={serifStyle} className="text-3xl sm:text-4xl font-bold text-[#2C1A12] mt-2">
                 O que dizem nossos clientes
               </h2>
             </div>
-            <div className="flex items-center gap-2 bg-[#141414] border border-white/10 px-4 py-2.5 rounded-xl">
-              <div className="flex text-[#E5C158]">
+            <div className="flex items-center gap-2 bg-white border border-[#E8D8C4] px-4 py-2.5 rounded-full shadow-sm">
+              <div className="flex text-[#D98A2B]">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-[#E5C158]" />
+                  <Star key={i} className="w-4 h-4 fill-[#D98A2B]" />
                 ))}
               </div>
-              <span className="text-sm text-neutral-300 font-medium">
-                4,1 no Facebook
+              <span className="text-sm text-[#4A3226] font-semibold">
+                4,1/5 · Avaliações reais
               </span>
             </div>
           </div>
@@ -373,17 +452,17 @@ export function App() {
             {REVIEWS.map((review, index) => (
               <div
                 key={index}
-                className="p-6 rounded-2xl bg-[#121212] border border-white/10 space-y-4"
+                className="p-7 rounded-3xl bg-white border border-[#E8D8C4] shadow-sm space-y-4"
               >
-                <div className="flex gap-1 text-[#E5C158]">
+                <div className="flex gap-1 text-[#D98A2B]">
                   {[...Array(review.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[#E5C158]" />
+                    <Star key={i} className="w-4 h-4 fill-[#D98A2B]" />
                   ))}
                 </div>
-                <p className="text-neutral-300 text-sm leading-relaxed italic">
+                <p className="text-[#4A3226] text-sm leading-relaxed italic">
                   "{review.text}"
                 </p>
-                <p className="text-sm font-semibold text-white pt-2 border-t border-white/5">
+                <p className="text-sm font-bold text-[#2C1A12] pt-3 border-t border-[#F0E4D4]">
                   {review.author}
                 </p>
               </div>
@@ -393,54 +472,62 @@ export function App() {
       </section>
 
       {/* Localização e Contato */}
-      <section id="localizacao" className="py-20 bg-[#0E0E0E] border-t border-white/5">
+      <section id="localizacao" className="py-20 bg-white border-t border-[#E8D8C4]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-10 items-center">
           <div className="space-y-6">
-            <span className="text-[#E5C158] text-xs font-semibold uppercase tracking-[0.2em]">
-              Venha nos visitar
+            <span className="text-[#C87D32] text-xs font-bold uppercase tracking-[0.2em]">
+              Venha tomar um café conosco
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white">
+            <h2 style={serifStyle} className="text-3xl sm:text-4xl font-bold text-[#2C1A12]">
               Onde Estamos
             </h2>
 
-            <div className="space-y-4 text-neutral-300">
+            <div className="space-y-5 text-[#4A3226]">
               <div className="flex items-start gap-3.5">
-                <MapPin className="w-5 h-5 text-[#E5C158] shrink-0 mt-1" />
+                <div className="w-10 h-10 rounded-full bg-[#FDF8F2] border border-[#E8D8C4] flex items-center justify-center shrink-0">
+                  <MapPin className="w-5 h-5 text-[#C87D32]" />
+                </div>
                 <div>
-                  <p className="font-semibold text-white">Endereço</p>
-                  <p className="text-sm text-neutral-400">
+                  <p className="font-bold text-[#2C1A12]">Endereço</p>
+                  <p className="text-sm text-[#5C3D2E]">
                     R. Mns Rafael Roldan, 23 - Jardim do Trevo, Campinas - SP, 13040-033
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3.5">
-                <Clock className="w-5 h-5 text-[#E5C158] shrink-0 mt-1" />
+                <div className="w-10 h-10 rounded-full bg-[#FDF8F2] border border-[#E8D8C4] flex items-center justify-center shrink-0">
+                  <Clock className="w-5 h-5 text-[#C87D32]" />
+                </div>
                 <div>
-                  <p className="font-semibold text-white">Horário de Funcionamento</p>
-                  <p className="text-sm text-neutral-400">
+                  <p className="font-bold text-[#2C1A12]">Horário de Funcionamento</p>
+                  <p className="text-sm text-[#5C3D2E]">
                     Segunda a Domingo · Aberto até às 22:00
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3.5">
-                <Phone className="w-5 h-5 text-[#E5C158] shrink-0 mt-1" />
+                <div className="w-10 h-10 rounded-full bg-[#FDF8F2] border border-[#E8D8C4] flex items-center justify-center shrink-0">
+                  <Phone className="w-5 h-5 text-[#C87D32]" />
+                </div>
                 <div>
-                  <p className="font-semibold text-white">Telefone / WhatsApp</p>
-                  <p className="text-sm text-neutral-400">(19) 99130-0573</p>
+                  <p className="font-bold text-[#2C1A12]">Telefone / WhatsApp</p>
+                  <p className="text-sm text-[#5C3D2E]">(19) 99130-0573</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3.5">
-                <Camera className="w-5 h-5 text-[#E5C158] shrink-0 mt-1" />
+                <div className="w-10 h-10 rounded-full bg-[#FDF8F2] border border-[#E8D8C4] flex items-center justify-center shrink-0">
+                  <Camera className="w-5 h-5 text-[#C87D32]" />
+                </div>
                 <div>
-                  <p className="font-semibold text-white">Redes Sociais</p>
+                  <p className="font-bold text-[#2C1A12]">Instagram</p>
                   <a
                     href="https://instagram.com/confeitaria.amoraospaes"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-[#E5C158] hover:underline"
+                    className="text-sm font-semibold text-[#C87D32] hover:underline"
                   >
                     @confeitaria.amoraospaes
                   </a>
@@ -450,11 +537,11 @@ export function App() {
           </div>
 
           {/* Embed Google Maps */}
-          <div className="h-80 sm:h-96 rounded-2xl overflow-hidden border border-white/10 bg-[#141414]">
+          <div className="h-80 sm:h-96 rounded-3xl overflow-hidden border border-[#E8D8C4] shadow-md bg-[#FDF8F2]">
             <iframe
               title="Localização Confeitaria Amor aos Pães Empório"
               src="https://www.google.com/maps?q=R.+Mns+Rafael+Roldan,+23+-+Jardim+do+Trevo,+Campinas+-+SP,+13040-033&output=embed"
-              className="w-full h-full border-0 grayscale contrast-125 opacity-90"
+              className="w-full h-full border-0"
               loading="lazy"
             />
           </div>
@@ -462,10 +549,14 @@ export function App() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 border-t border-white/10 text-center text-xs text-neutral-500">
-        <div className="max-w-6xl mx-auto px-4">
-          <p>
-            © {new Date().getFullYear()} Confeitaria Amor aos Pães Empório · Todos os direitos reservados.
+      <footer className="py-8 bg-[#2C1A12] text-[#E6D3BC] text-center text-xs">
+        <div className="max-w-6xl mx-auto px-4 space-y-1">
+          <p style={serifStyle} className="text-sm text-[#F7E7CE]">
+            Confeitaria Amor aos Pães Empório
+          </p>
+          <p className="text-[#C4AE94]">
+            © {new Date().getFullYear()} · Jardim do Trevo, Campinas - SP · Todos os
+            direitos reservados.
           </p>
         </div>
       </footer>
@@ -476,7 +567,7 @@ export function App() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Falar no WhatsApp"
-        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold px-4 py-3.5 rounded-full shadow-2xl transition-transform hover:scale-105"
+        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold px-5 py-3.5 rounded-full shadow-xl transition-transform hover:scale-105"
       >
         <MessageCircle className="w-5 h-5" />
         <span className="hidden sm:inline text-sm">WhatsApp</span>
