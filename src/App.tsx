@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { motion } from 'motion/react';
 import {
   MapPin,
@@ -115,19 +115,19 @@ function ScrollIcon({
   children,
   delay = 0
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   delay?: number;
 }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 14, scale: 0.75 }}
+    <motion.span
+      initial={{ opacity: 0.15, y: 12, scale: 0.8 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, amount: 'some' }}
+      viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.45, delay, ease: [0.22, 1, 0.36, 1] }}
       className="inline-flex items-center justify-center"
     >
       {children}
-    </motion.div>
+    </motion.span>
   );
 }
 
